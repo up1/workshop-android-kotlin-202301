@@ -1,6 +1,8 @@
 package com.example.demo.data
 
 import com.example.demo.data.model.LoggedInUser
+import com.example.demo.data.remote.LoginRequest
+import com.example.demo.data.remote.UserApi
 import java.io.IOException
 
 /**
@@ -8,11 +10,19 @@ import java.io.IOException
  */
 class LoginDataSource {
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    suspend fun login(username: String, password: String): Result<LoggedInUser> {
         try {
-            // TODO: handle loggedInUser authentication
-            val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-            return Result.Success(fakeUser)
+            val request = LoginRequest(username, password)
+            val result = UserApi.getApi()?.loginUser(request)
+            if (result?.code() == 200 && result.body()?.code == 0) {
+                val user = LoggedInUser(
+                    result.body()?.data?.id.toString(),
+                    result.body()?.data?.name.toString()
+                )
+                return Result.Success(user)
+            } else {
+                return Result.Error(IOException("Error"))
+            }
         } catch (e: Throwable) {
             return Result.Error(IOException("Error logging in", e))
         }
