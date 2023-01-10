@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DemoRepository(val demoDao: DemoDao) {
+class DemoRepository(private val demoDao: DemoDao) {
     fun tryInsertData() {
         CoroutineScope(Dispatchers.IO).launch {
             println("========== Run worker ===========")
