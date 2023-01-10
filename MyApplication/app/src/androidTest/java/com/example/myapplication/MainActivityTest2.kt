@@ -10,6 +10,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.filters.MediumTest
+import androidx.test.filters.SmallTest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -19,6 +21,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
+@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest2 {
 
